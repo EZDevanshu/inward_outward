@@ -1,16 +1,59 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import "../style/header.css";
 
-function Header(){
-    return(
-        <>
-            <nav>
-                <Link to='/'>Home</Link>
-                <Link to='/add'>Add</Link>
-                <Link to='/edit/1'>Edit</Link>
-                <Link to='/list'>List</Link>
-            </nav>
-        </>
-    );
+function Header() {
+  return (
+    <nav className="navbar navbar-expand-lg app-navbar">
+      <div className="container-fluid">
+
+        <NavLink className="navbar-brand app-brand" to="/">
+          Inward-Outward
+        </NavLink>
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#appNavbar"
+          aria-controls="appNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="appNavbar">
+          <ul className="navbar-nav ms-auto">
+
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/">
+                Dashboard
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/add">
+                Add Entry
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/list">
+                Records
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/edit/1">
+                Edit
+              </NavLink>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
 }
 
 export default Header;
