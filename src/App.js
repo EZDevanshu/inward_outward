@@ -5,6 +5,9 @@ import Home from "./pages/Home";
 import List from "./components/List";
 import AddForm from "./components/AddForm";
 import EditForm from "./components/EditForm";
+import Login from "./Auth/Login";
+import ChangePassword from "./Auth/ChangePassword"
+
 
 function App() {
   return (
@@ -16,6 +19,8 @@ function App() {
             <Route path="/list" element={<List />} />
             <Route path="/add" element={<AddForm />} />
             <Route path="/edit/:id" element={<EditForm />} />
+            <Route path="/login" element = {<Login />}/>
+            <Route path="/change-password" element = {<ChangePassword />}/>
           </Routes>
       </div>
     </>
