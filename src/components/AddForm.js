@@ -15,7 +15,7 @@ function AddForm(){
 
     return(
         <>
-            <div>
+            <div className="addform-container"> 
                 <h2>kaie Add Karvu Hoy To.....</h2>
 
                 <form onSubmit={handleSubmit}>
