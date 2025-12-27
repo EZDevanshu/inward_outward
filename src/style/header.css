@@ -6,8 +6,8 @@
 }
 
 .app-brand {
-  color: #ffffff !important;
-  font-weight: 600;
+  color: #ffffff !important; 
+  font-weight: 600; 
   font-size: 1.3rem;
   letter-spacing: 0.5px;
 }
@@ -33,4 +33,9 @@
 }
 .navbar-toggler-icon {
   filter: invert(1);
+}
+
+.nav-item {
+  margin-left: 40px;
+
 }

@@ -7,6 +7,7 @@ import AddForm from "./components/AddForm";
 import EditForm from "./components/EditForm";
 import Login from "./Auth/Login";
 import ChangePassword from "./Auth/ChangePassword"
+import Settings from "./components/Settings";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/edit/:id" element={<EditForm />} />
             <Route path="/login" element = {<Login />}/>
             <Route path="/change-password" element = {<ChangePassword />}/>
+            <Route path="/settings" element={<Settings/>}/>
           </Routes>
       </div>
     </>

@@ -10,3 +10,61 @@ export const dummyItems = [
   { id: 9, name: "Office I", description: "IT operations office" },
   { id: 10, name: "Office J", description: "Logistics office" }
 ];
+
+export const rows = [
+  {
+    id: 1,
+    date: "24 Dec 2025",
+    parcel: 15,
+    type: "Inward",
+    from: "Office A",
+    to: "HR Dept",
+    status: "Closed",
+  },
+  {
+    id: 2,
+    date: "24 Dec 2025",
+    parcel: 16,
+    type: "Outward",
+    from: "HR Dept",
+    to: "Office B",
+    status: "In Transit",
+  },
+  {
+    id: 3,
+    date: "23 Dec 2025",
+    parcel: 12,
+    type: "Inward",
+    from: "Branch X",
+    to: "Accounts",
+    status: "Pending",
+  },
+  {
+    id: 4,
+    date: "23 Dec 2025",
+    parcel: 10,
+    type: "Outward",
+    from: "Accounts",
+    to: "Branch X",
+    status: "Closed",
+  },
+  {
+    id: 5,
+    date: "22 Dec 2025",
+    parcel: 9,
+    type: "Inward",
+    from: "Office C",
+    to: "Legal",
+    status: "Under Review",
+  },
+  {
+    id: 6,
+    date: "22 Dec 2025",
+    parcel: 7,
+    type: "Outward",
+    from: "Legal",
+    to: "Office C",
+    status: "Closed",
+  },
+];
+

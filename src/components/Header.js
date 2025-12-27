@@ -32,8 +32,8 @@ function Header() {
             </li>
 
             <li className="nav-item">
-              <NavLink className="nav-link" to="/add">
-                Add Entry
+              <NavLink className="nav-link" to="/edit/1">
+                Edit
               </NavLink>
             </li>
 
@@ -44,23 +44,22 @@ function Header() {
             </li>
 
             <li className="nav-item">
-              <NavLink className="nav-link" to="/edit/1">
-                Edit
-              </NavLink>
-            </li>
-
-            <li className="nav-item">
               <NavLink className="nav-link" to="/login">
                 Login
               </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink className="nav-link" to="/change-password">
-                Change Password
+              <NavLink className="nav-link" to="/settings">
+                Settings
               </NavLink>
             </li>
 
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/add">
+                Add Entry
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
