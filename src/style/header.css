@@ -1,0 +1,41 @@
+ 
+.app-navbar {
+  background-color: #0f172a; 
+  padding: 10px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.app-brand {
+  color: #ffffff !important; 
+  font-weight: 600; 
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+}
+
+.app-navbar .nav-link {
+  color: #cbd5e1 !important;
+  margin-left: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;  
+}
+
+.app-navbar .nav-link:hover {
+  color: #ffffff !important;
+}
+
+.app-navbar .nav-link.active {
+  color: #38bdf8 !important; 
+  border-bottom: 2px solid #38bdf8;
+}
+ 
+.navbar-toggler {
+  border-color: #ffffff;
+}
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+.nav-item {
+  margin-left: 40px;
+
+}
