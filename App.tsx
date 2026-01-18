@@ -37,7 +37,7 @@ const App: React.FC = () => {
               <Route path="/entry" element={<EntryForm />} />
               <Route path="/entry/inward" element={<EntryForm initialType={EntryType.INWARD} />} />
               <Route path="/entry/outward" element={<EntryForm initialType={EntryType.OUTWARD} />} />
-              
+        
               <Route path="/registers/inward" element={<Register type={EntryType.INWARD} />} />
               <Route path="/registers/outward" element={<Register type={EntryType.OUTWARD} />} />
               
