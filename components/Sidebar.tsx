@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const NavGroup: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
   <div className="mb-6">
@@ -24,6 +25,9 @@ const NavItem: React.FC<{ to: string; icon: string; label: string }> = ({ to, ic
 );
 
 export const Sidebar: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
+  const { user } = useAuth();
+  const isAdmin = user?.role === 'ADMIN';
+
   return (
     <aside className={`${isOpen ? 'w-64' : 'w-20'} h-screen fixed left-0 top-0 bg-white border-r border-slate-200 z-40 transition-all duration-300 overflow-hidden shadow-xl`}>
       <Link to="/dashboard" className="block">
@@ -44,7 +48,7 @@ export const Sidebar: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
       </Link>
       <nav className="py-6 h-[calc(100vh-80px)] overflow-y-auto custom-scrollbar">
         <NavGroup title="Main">
-          <NavItem to="/" icon="📊" label="Dashboard" />
+          <NavItem to="/dashboard" icon="📊" label="Dashboard" />
         </NavGroup>
 
         <NavGroup title="Operations">
@@ -53,18 +57,21 @@ export const Sidebar: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
           <NavItem to="/entry/outward" icon="📤" label="Outward Entry" />
         </NavGroup>
 
-        <NavGroup title="Data Management">
-          <NavItem to="/masters" icon="📁" label="Masters" />
-          <NavItem to="/registers/inward" icon="📒" label="Inward Register" />
-          <NavItem to="/registers/outward" icon="📘" label="Outward Register" />
-        </NavGroup>
+        {/* Admin Section */}
+        {isAdmin && (
+          <NavGroup title="Data Management">
+            <NavItem to="/masters" icon="📁" label="Masters" />
+            <NavItem to="/registers/inward" icon="📒" label="Inward Register" />
+            <NavItem to="/registers/outward" icon="📘" label="Outward Register" />
+          </NavGroup>
+        )}
 
         <NavGroup title="Utilities">
           <NavItem to="/search" icon="🔍" label="Advanced Search" />
-          <NavItem to="/reports" icon="📈" label="Reports" />
-          <NavItem to="/settings" icon="⚙️" label="Settings" />
+          {isAdmin && <NavItem to="/reports" icon="📈" label="Reports" />}
+          {isAdmin && <NavItem to="/settings" icon="⚙️" label="Settings" />}
         </NavGroup>
       </nav>
     </aside>
   );
-};  
+};

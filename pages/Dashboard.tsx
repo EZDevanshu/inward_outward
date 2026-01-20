@@ -1,6 +1,9 @@
 import React from 'react';
-import { Card, Badge } from '../components/Common';
+import { Card, Badge, Button } from '../components/Common';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { EntryType } from '../types';
 
 const data = [
   { name: 'Jan', inward: 400, outward: 240 },
@@ -20,20 +23,12 @@ const pieData = [
 const COLORS = ['#4f46e5', '#10b981', '#f59e0b', '#ef4444'];
 
 export const Dashboard: React.FC = () => {
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800">Operations Control Panel</h1>
-          <p className="text-slate-500 text-sm">Real-time monitoring of document movement</p>
-        </div>
-        <div className="text-right">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Last Sync</p>
-          <p className="text-sm font-semibold text-slate-600">Today, 10:30 AM</p>
-        </div>
-      </div>
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const isAdmin = user?.role === 'ADMIN';
 
-      {/* Metric Cards */}
+  const AdminView = () => (
+    <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { label: "Today's Inward", val: "12", trend: "+2", sub: "Documents", color: "indigo" },
@@ -77,18 +72,18 @@ export const Dashboard: React.FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data}>
                 <CartesianGrid strokeDasharray="0" vertical={false} stroke="#f1f5f9" />
-                <XAxis 
-                  dataKey="name" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fontSize: 12, fill: '#94a3b8', fontWeight: 500 }} 
+                <XAxis
+                  dataKey="name"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: '#94a3b8', fontWeight: 500 }}
                 />
-                <YAxis 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fontSize: 12, fill: '#94a3b8', fontWeight: 500 }} 
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: '#94a3b8', fontWeight: 500 }}
                 />
-                <Tooltip 
+                <Tooltip
                   cursor={{ fill: '#f8fafc' }}
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', padding: '12px' }}
                 />
@@ -145,14 +140,13 @@ export const Dashboard: React.FC = () => {
               { label: "Internal Routing Awaited", count: 12, desc: "Assigned to departments but not received", urgency: "medium" },
               { label: "Pending Delivery Confirmation", count: 7, desc: "Sent but delivery status not updated", urgency: "low" }
             ].map((task, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="flex items-center gap-4 p-3 border border-slate-100 rounded-lg hover:bg-slate-50 hover:border-indigo-200 transition-all cursor-pointer group outline-none"
               >
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
-                  task.urgency === 'high' ? 'bg-rose-50 text-rose-600' : 
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${task.urgency === 'high' ? 'bg-rose-50 text-rose-600' :
                   task.urgency === 'medium' ? 'bg-amber-50 text-amber-600' : 'bg-sky-50 text-sky-600'
-                }`}>
+                  }`}>
                   <span className="font-bold">{task.count}</span>
                 </div>
                 <div className="flex-1 min-w-0">
@@ -188,6 +182,89 @@ export const Dashboard: React.FC = () => {
           </div>
         </Card>
       </div>
-    </div>
+    </>
+  );
+
+  const OperatorView = () => (
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <Card className="p-6 border-l-4 border-indigo-500">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-sm text-slate-500 font-medium uppercase tracking-wider">Today's Inward</p>
+              <h2 className="text-4xl font-bold text-slate-800 mt-2">18</h2>
+            </div>
+            <div className="p-4 bg-indigo-50 rounded-full text-indigo-600 text-2xl">📥</div>
+          </div>
+          <Button className="mt-4 w-full" onClick={() => navigate('/entry/inward')}>+ New Inward Entry</Button>
+        </Card>
+
+        <Card className="p-6 border-l-4 border-emerald-500">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-sm text-slate-500 font-medium uppercase tracking-wider">Today's Outward</p>
+              <h2 className="text-4xl font-bold text-slate-800 mt-2">09</h2>
+            </div>
+            <div className="p-4 bg-emerald-50 rounded-full text-emerald-600 text-2xl">📤</div>
+          </div>
+          <Button className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700" onClick={() => navigate('/entry/outward')}>+ New Outward Entry</Button>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Card className="p-6 lg:col-span-2">
+          <h3 className="font-bold text-slate-800 mb-4">Recent Processing</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-slate-50 text-xs uppercase text-slate-500 font-bold">
+                <tr>
+                  <th className="p-3 rounded-l-lg">ID</th>
+                  <th className="p-3">Subject</th>
+                  <th className="p-3">Type</th>
+                  <th className="p-3 rounded-r-lg">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {[1, 2, 3, 4, 5].map(i => (
+                  <tr key={i} className="hover:bg-slate-50">
+                    <td className="p-3 font-mono text-xs font-bold text-slate-600">INW/2024/00{i}</td>
+                    <td className="p-3">Document from Regional Office regarding Audit</td>
+                    <td className="p-3"><Badge variant="info">Inward</Badge></td>
+                    <td className="p-3"><Badge variant="success">Received</Badge></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <h3 className="font-bold text-slate-800 mb-4">Quick Actions</h3>
+          <div className="space-y-3">
+            <Button variant="secondary" className="w-full justify-start gap-2" onClick={() => navigate('/search')}>🔍 Search Record</Button>
+            <Button variant="secondary" className="w-full justify-start gap-2">📦 Track Courier</Button>
+            <Button variant="secondary" className="w-full justify-start gap-2">📑 View Daily Report</Button>
+          </div>
+        </Card>
+      </div>
+    </>
+  );
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-800">
+            {isAdmin ? 'Operations Control Panel' : 'Operator Dashboard'}
+          </h1>
+          <p className="text-slate-500 text-sm">
+            {isAdmin ? 'Real-time monitoring of document movement' : 'Daily overview and quick entry'}
+          </p>
+        </div>
+        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Last Sync</p>
+        <p className="text-sm font-semibold text-slate-600 mb-2">Today, 10:30 AM</p>
+      </div>
+      {isAdmin ? <AdminView /> : <OperatorView />}
+    </div >
   );
 };
