@@ -13,7 +13,6 @@ export const Login: React.FC = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
-
         try {
             // In a real app, we would validate password too
             // For mock, we just check username and simulate delay
