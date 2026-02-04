@@ -10,8 +10,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Check local storage on mount
-        const storedUser = localStorage.getItem('auth_user');
+        // Check session storage on mount
+        const storedUser = sessionStorage.getItem('auth_user');
         if (storedUser) {
             try {
                 const parsedUser = JSON.parse(storedUser);
@@ -19,7 +19,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 setIsAuthenticated(true);
             } catch (e) {
                 console.error('Failed to parse stored user', e);
-                localStorage.removeItem('auth_user');
+                sessionStorage.removeItem('auth_user');
             }
         }
         setIsLoading(false);
@@ -28,13 +28,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const login = (userData: User) => {
         setUser(userData);
         setIsAuthenticated(true);
-        localStorage.setItem('auth_user', JSON.stringify(userData));
+        sessionStorage.setItem('auth_user', JSON.stringify(userData));
     };
 
     const logout = () => {
         setUser(null);
         setIsAuthenticated(false);
-        localStorage.removeItem('auth_user');
+        sessionStorage.removeItem('auth_user');
     };
 
     return (
