@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { MockApi } from '../services/MockApi';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Login: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const { login, isLoading } = useAuth();
-    const navigate = useNavigate();
+    const location = useLocation();
+    const registrationSuccess = (location.state as { registered?: boolean; username?: string } | null)?.registered;
+    const registeredUsername = (location.state as { registered?: boolean; username?: string } | null)?.username;
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -37,6 +39,12 @@ export const Login: React.FC = () => {
                 </div>
 
                 <div className="p-8">
+                    {registrationSuccess && (
+                        <div className="mb-4 text-green-700 text-sm bg-green-50 p-3 rounded border border-green-100">
+                            Account created successfully{registeredUsername ? ` for ${registeredUsername}` : ''}. Please sign in.
+                        </div>
+                    )}
+
                     <form onSubmit={handleLogin} className="space-y-6">
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">Username / Email</label>
@@ -90,6 +98,12 @@ export const Login: React.FC = () => {
                             <code className="bg-slate-100 px-2 py-1 rounded text-slate-600 cursor-pointer hover:bg-slate-200" onClick={() => { setUsername('admin'); setPassword('admin') }}>admin / admin</code>
                             <code className="bg-slate-100 px-2 py-1 rounded text-slate-600 cursor-pointer hover:bg-slate-200" onClick={() => { setUsername('operator'); setPassword('operator') }}>operator / operator</code>
                         </div>
+                        <p className="mt-4 text-sm text-slate-500">
+                            New here?{' '}
+                            <Link to="/register" className="text-indigo-600 hover:text-indigo-700 font-semibold">
+                                Create Account
+                            </Link>
+                        </p>
                     </div>
                 </div>
             </div>

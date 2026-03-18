@@ -8,6 +8,7 @@ import { EntryForm } from './pages/EntryForm';
 import { Register } from './pages/Register';
 import { Masters } from './pages/Masters';
 import { Login } from './pages/Login';
+import { UserRegistration } from './pages/UserRegistration';
 import { Search } from './pages/Search';
 import { EntryType, Role } from './types';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -82,6 +83,9 @@ const AppRoutes: React.FC = () => {
     <Routes>
       <Route path="/login" element={
         isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />
+      } />
+      <Route path="/register" element={
+        isAuthenticated ? <Navigate to="/dashboard" replace /> : <UserRegistration />
       } />
 
       <Route path="/dashboard" element={
