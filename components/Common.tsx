@@ -1,6 +1,20 @@
 
 import React from 'react';
 
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  label: string;
+};
+
+type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
+  label: string;
+  options: string[];
+};
+
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
+};
+
 export const Card: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = "" }) => (
   <div className={`bg-white rounded-lg shadow-sm border border-slate-200 ${className}`}>
     {children}
@@ -22,7 +36,7 @@ export const Badge: React.FC<{ children: React.ReactNode; variant?: 'success' | 
   );
 };
 
-export const Input: React.FC<{ label: string; [key: string]: any }> = ({ label, required, ...props }) => (
+export const Input: React.FC<InputProps> = ({ label, required, ...props }) => (
   <div className="flex flex-col gap-1 w-full">
     <label className="text-xs font-semibold text-slate-600 flex items-center gap-1">
       {label}
@@ -35,7 +49,7 @@ export const Input: React.FC<{ label: string; [key: string]: any }> = ({ label, 
   </div>
 );
 
-export const Select: React.FC<{ label: string; options: string[]; [key: string]: any }> = ({ label, options, required, ...props }) => (
+export const Select: React.FC<SelectProps> = ({ label, options, required, ...props }) => (
   <div className="flex flex-col gap-1 w-full">
     <label className="text-xs font-semibold text-slate-600 flex items-center gap-1">
       {label}
@@ -57,7 +71,7 @@ export const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children
   </h3>
 );
 
-export const Button: React.FC<{ children: React.ReactNode; variant?: 'primary' | 'secondary' | 'danger' | 'ghost'; [key: string]: any }> = ({ children, variant = 'primary', className = "", ...props }) => {
+export const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', className = "", ...props }) => {
   const variants = {
     primary: 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-indigo-200',
     secondary: 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50',

@@ -18,12 +18,12 @@ export const Login: React.FC = () => {
         try {
             // In a real app, we would validate password too
             // For mock, we just check username and simulate delay
-            const user = await MockApi.login(username);
+            const user = await MockApi.login(username, password);
             login(user); // Set global auth state
             // Navigation will be handled by App.tsx redirect logic or we can do it here
             // But usually best to let App routing handle state change
         } catch (err) {
-            setError('Invalid credentials. Try "admin" or "operator"');
+            setError('Invalid credentials or backend unreachable.');
         }
     };
 

@@ -49,7 +49,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ initialType = EntryType.IN
   }, []);
 
   const handleInputChange = (field: string, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev: Record<string, any>) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async () => {
@@ -184,7 +184,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ initialType = EntryType.IN
                       onChange={e => {
                         const ent = entities.find(x => x.id === e.target.value);
                         if (ent) {
-                          setFormData(prev => ({
+                          setFormData((prev: Record<string, any>) => ({
                             ...prev,
                             senderName: ent.personName,
                             senderAddress: ent.address + ', ' + ent.place
