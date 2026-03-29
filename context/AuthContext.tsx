@@ -26,6 +26,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }, []);
 
     const login = (userData: User) => {
+
+        // login if user has alredy account 
         setUser(userData);
         setIsAuthenticated(true);
         sessionStorage.setItem('auth_user', JSON.stringify(userData));
