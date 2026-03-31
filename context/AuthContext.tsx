@@ -46,7 +46,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     );
 };
 
-// auth module for aythentication 
+// auth module for aythentication
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (context === undefined) {

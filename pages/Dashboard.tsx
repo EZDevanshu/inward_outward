@@ -5,6 +5,8 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { EntryType } from '../types';
 
+
+// static data 
 const data = [
   { name: 'Jan', inward: 400, outward: 240 },
   { name: 'Feb', inward: 300, outward: 139 },
